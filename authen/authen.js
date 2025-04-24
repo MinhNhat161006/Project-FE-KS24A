@@ -99,7 +99,8 @@ function register(event) {
 
  
 
-  data.role = "USER";
+  data.role = data.email === "nhmnhat161006.nvtroi2124@gmail.com" ? "ADMIN" : "USER";
+
   userList.push(data);
   saveUserListToLocal(userList);
 

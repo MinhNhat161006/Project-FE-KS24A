@@ -64,63 +64,59 @@
   </table>
   </div>
   
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Đặt lịch mới</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-                <form class="row g-3 needs-validation" id="bookingForm" novalidate></form>
-                <div class="mb-6">
-                    <label for="validationCustom04" class="form-label">Lớp học</label>
-                    <select class="form-select" id="validationCustom04" name="className" required>
-                      <option selected disabled value="">Chọn lớp học</option>
-                      <option>Gym</option>
-                      <option>Yoga</option>
-                      <option>Zumba</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Vui lòng chọn lớp học.
-                    </div>
-                  </div>
-                  <div class="mb-6">
-                    <label for="validationCustom03" class="form-label">Ngày tập</label>
-                    <input type="date" class="form-control" name="date" id="validationCustom03" placeholder ="Chọn ngày tập" required>
-                    <div class="invalid-feedback">
-                        Vui lòng chọn ngày tập.
-                    </div>
-                  </div>
-                  <div class="mb-6">
-                    <label for="validationCustom04" class="form-label">Khung giờ</label>
-                    <select class="form-select" name ="time" id="validationCustom04" required>
-                      <option selected disabled value="">Chọn khung giờ</option>
-                      <option>07:00 - 09:00</option>
-                      <option>09:00 - 11:00</option>
-                      <option>11:00 - 13:00</option>
-                      <option>13:00 - 15:00</option>
-                      <option>15:00 - 17:00</option>
-                      <option>17:00 - 19:00</option>
-                      <option>19:00 - 21:00</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Vui lòng chọn khung giờ.
-                    </div>
-                  </div>
-                
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="addlistBooking()">Lưu</button>
+        <form class="row g-3 needs-validation" id="bookingForm" novalidate>
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Đặt lịch mới</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+  
+          <div class="modal-body">
+            <div class="mb-6">
+              <label class="form-label">Lớp học</label>
+              <select class="form-select" name="className" required>
+                <option selected disabled value="">Chọn lớp học</option>
+                <option>Gym</option>
+                <option>Yoga</option>
+                <option>Zumba</option>
+              </select>
+              <div class="invalid-feedback">Vui lòng chọn lớp học.</div>
+            </div>
+  
+            <div class="mb-6">
+              <label class="form-label">Ngày tập</label>
+              <input type="date" class="form-control" name="date" required>
+              <div class="invalid-feedback">Vui lòng chọn ngày tập.</div>
+            </div>
+  
+            <div class="mb-6">
+              <label class="form-label">Khung giờ</label>
+              <select class="form-select" name="time" required>
+                <option selected disabled value="">Chọn khung giờ</option>
+                <option>07:00 - 09:00</option>
+                <option>09:00 - 11:00</option>
+                <option>11:00 - 13:00</option>
+                <option>13:00 - 15:00</option>
+                <option>15:00 - 17:00</option>
+                <option>17:00 - 19:00</option>
+                <option>19:00 - 21:00</option>
+              </select>
+              <div class="invalid-feedback">Vui lòng chọn khung giờ.</div>
+            </div>
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="addlistBooking()">Lưu</button>
+          </div>
         </form>
-        </div>
       </div>
     </div>
   </div>
-
+  
 
   <!-- Thông báo đăng nhập thành công -->
   <div class="modal" id = "addlistBooking" tabindex="-1">

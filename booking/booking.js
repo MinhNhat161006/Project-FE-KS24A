@@ -18,13 +18,26 @@
     })
   })()
 
-  const listBooking = [
+  let listBooking = [
     {
         className : "Gym",
         date : "2023-10-01",
         time : "07:00 - 09:00",
     }
   ]
+
+  if (!localStorage.getItem("listBooking")) {
+    localStorage.setItem("listBooking", JSON.stringify(listBooking));
+    
+  }else {
+   listBooking = JSON.parse(localStorage.getItem("listBooking"));
+  }
+
+  function updateData() {
+    localStorage.setItem("listBooking", JSON.stringify(listBooking));
+  }
+
+
 
   let tabledata = document.querySelector("tbody");
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || '{}');
@@ -68,14 +81,14 @@ function addlistBooking () {
     }
 
     listBooking.push(newlistBooking);
-    // Lưu vào localStorage
-    localStorage.setItem("listBooking", JSON.stringify(listBooking));
+    updateData();
     
-    // Reset form
+
     document.getElementById("bookingForm").reset();
     
-    // Cập nhật bảng hiển thị
+   
     renderdataEl();
    
   
 }
+
