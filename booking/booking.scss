@@ -1,0 +1,56 @@
+$headerH : 52px;
+$maxWidth : 1280px;
+
+body{
+    background-color: #F9FAFB;
+}
+
+header {
+    width: 100%;
+    height: $headerH;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: #1F2937;
+    margin: 0 auto;
+
+   
+    .content{
+        width: $maxWidth;
+        height: $headerH;
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        color: white;
+        .tittle_box{
+            font-size: large;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user_box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
+}
+
+.containerBooking{
+    width: $maxWidth;
+    margin: 0 auto;
+    height: 100%;
+    padding: 20px;
+    .header_table {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

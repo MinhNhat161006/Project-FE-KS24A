@@ -1,0 +1,71 @@
+$headerH : 52px;
+$maxWidth : 1280px;
+
+header {
+    width: 100%;
+    height: $headerH;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: #1F2937;
+    margin: 0 auto;
+
+   
+    .content{
+        width: $maxWidth;
+        height: $headerH;
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        color: white;
+        .tittle_box{
+            font-size: large;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user_box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
+}
+
+.banner {
+    color: white;
+    width: 100%;
+    height: 745.9px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+ 
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                          url('https://driphydration.vn/wp-content/uploads/2024/07/yoga-thai-doc-gan-3.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+      
+    
+}
+
+.popular-classes h4 {
+    font-size: 1.8rem;
+}
+
+.card img {
+    height: 180px;
+    object-fit: cover;
+    ;
+}
+
+
