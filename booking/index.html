@@ -30,6 +30,7 @@
       </button>
   </div>
   
+  <div class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -63,8 +64,31 @@
     </tbody>
   </table>
   </div>
+</div>
+
+
+<!-- Phân trang -->
+<div class="p-3 m-0 border-0 bd-example m-0 border-0">
+  <!-- Example Code Start -->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center" id="pagination">
+      <li class="page-item disabled">
+        <a class="page-link" href="#">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+  </div>
+
+
   
-<!-- Modal -->
+<!-- Modal addlistBooking-->
+ 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -95,6 +119,8 @@
             <div class="mb-6">
               <label class="form-label">Khung giờ</label>
               <select class="form-select" name="time" required>
+                <div class="invalid-feedback" id="duplicateError">Khung giờ này đã được đặt. Vui lòng chọn thời gian khác.</div>
+
                 <option selected disabled value="">Chọn khung giờ</option>
                 <option>07:00 - 09:00</option>
                 <option>09:00 - 11:00</option>
@@ -105,20 +131,82 @@
                 <option>19:00 - 21:00</option>
               </select>
               <div class="invalid-feedback">Vui lòng chọn khung giờ.</div>
+            
+              
             </div>
           </div>
   
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="addlistBooking()">Lưu</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addlistBooking()">Lưu</button>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+
+
+  <!-- Modal editlistBooking-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form class="row g-3 needs-validation" id="editBookingForm" novalidate>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Đặt lịch mới</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-6">
+            <label class="form-label">Lớp học</label>
+            <select class="form-select" name="className" required>
+              <option selected disabled value="">Chọn lớp học</option>
+              <option>Gym</option>
+              <option>Yoga</option>
+              <option>Zumba</option>
+            </select>
+            <div class="invalid-feedback">Vui lòng chọn lớp học.</div>
+          </div>
+
+          <div class="mb-6">
+            <label class="form-label">Ngày tập</label>
+            <input type="date" class="form-control" name="date" required>
+            <div class="invalid-feedback">Vui lòng chọn ngày tập.</div>
+          </div>
+
+          <div class="mb-6">
+            <label class="form-label">Khung giờ</label>
+            <select class="form-select" name="time" required>
+              <option selected disabled value="">Chọn khung giờ</option>
+              <option>07:00 - 09:00</option>
+              <option>09:00 - 11:00</option>
+              <option>11:00 - 13:00</option>
+              <option>13:00 - 15:00</option>
+              <option>15:00 - 17:00</option>
+              <option>17:00 - 19:00</option>
+              <option>19:00 - 21:00</option>
+            </select>
+            <div class="invalid-feedback">Vui lòng chọn khung giờ.</div>
+
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary" id="editSaveBtn">Lưu</button>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
   
 
-  <!-- Thông báo đăng nhập thành công -->
+  <!-- Thông báo đặt lịch thành công -->
   <div class="modal" id = "addlistBooking" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -135,6 +223,64 @@
       </div>
     </div>
   </div>
+
+
+   <!-- có chắc muốn xóa không? -->
+   <div class="modal" id = "deletelistBooking" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thông báo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc muốn xóa không?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Thông báo sửa lịch thành công -->
+    <div class="modal" id = "editlistBooking" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông báo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Sửa lịch thành công.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <!-- Thông báo trùng lập -->
+      <div class="modal" id = "erorr" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Thông báo</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Thời gian bị trùng lập, vui lòng nhập lại!</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../authen/authen.js"></script>

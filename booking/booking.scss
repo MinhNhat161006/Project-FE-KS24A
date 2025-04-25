@@ -43,14 +43,29 @@ header {
 
 }
 
-.containerBooking{
-    width: $maxWidth;
+.containerBooking {
+    width: 100%;
+    max-width: $maxWidth;
     margin: 0 auto;
-    height: 100%;
     padding: 20px;
+  
     .header_table {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-}
+  
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto; 
+    }
+  
+    table {
+      width: 100%;
+      min-width: 600px; 
+    }
+  }
+  
+  
