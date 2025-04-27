@@ -1,31 +1,4 @@
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(() => {
-    'use strict'
-  
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-  
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-  
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
 
-  let listBooking = [
-    {
-        className : "Gym",
-        date : "2023-10-01",
-        time : "07:00 - 09:00"
-        
-    }
-  ]
 
   if (!localStorage.getItem("listBooking")) {
     localStorage.setItem("listBooking", JSON.stringify(listBooking));
@@ -43,36 +16,26 @@
   let tabledata = document.querySelector("tbody");
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || '{}');
 
- function renderdataEl() {
-  const tbody = document.querySelector("tbody");
-  // Lấy email của user hiện tại
-  const me = userLogin.email;
-
-  // Lọc chỉ những booking của chính user đó
-  const mine = listBooking.filter(b => b.email === me);
-
-  // Xây dựng HTML
-  let html = "";
-  for (let i = 0; i < mine.length; i++) {
-    html += `
-      <tr>
-        <td>${mine[i].className}</td>
-        <td>${mine[i].date}</td>
-        <td>${mine[i].time}</td>
-        <td>${mine[i].name || ""}</td>
-        <td>${mine[i].email || ""}</td>
-        <td>
-          <button style="background: none; border: none; color: blue;"
-                  onclick="openEditModal(${i})">Sửa</button>
-          <button style="background: none; border: none; color: red;"
-                  onclick="deletelistBooking(${i})">Xóa</button>
-        </td>
-      </tr>
-    `;
+  function renderdataEl(data = listBooking) {
+    let html = '';
+    for (let i = 0; i < data.length; i++) {
+      html += `
+        <tr>
+          <td>${data[i].className}</td>
+          <td>${data[i].date}</td>
+          <td>${data[i].time}</td>
+          <td>${data[i].name || ''}</td>
+          <td>${data[i].email || ''}</td>
+          <td>
+            <button class="btn btn-link p-0" onclick="openEditModal(${i})">Sửa</button>
+            <button class="btn btn-link text-danger p-0" onclick="deletelistBooking(${i})">Xóa</button>
+          </td>
+        </tr>
+      `;
+    }
+    tabledata.innerHTML = html;
   }
-
-  tbody.innerHTML = html;
-}
+  
 
 renderdataEl ();
 
@@ -96,6 +59,9 @@ bookingForm.addEventListener("submit", function(e) {
   const className = bookingForm.className.value;
   const date      = bookingForm.date.value;
   const time      = bookingForm.time.value;
+  const name      = bookingForm.name.value;
+  const email     = bookingForm.email.value;
+  
 
   // Kiểm tra trùng
   const isDuplicate = listBooking.some(b => b.date === date && b.time === time);
@@ -108,9 +74,7 @@ bookingForm.addEventListener("submit", function(e) {
   }
 
   // thêm mới
-  listBooking.push({ className, date, time,
-                     name: userLogin.name,
-                     email: userLogin.email });
+  listBooking.push({ className, date, time, name, email });
   updateData();
   renderdataEl();
 
@@ -130,8 +94,8 @@ function editlistBooking(index) {
   let className = document.querySelector("#editBookingForm select[name='className']").value;
   let date = document.querySelector("#editBookingForm input[name='date']").value;
   let time = document.querySelector("#editBookingForm select[name='time']").value;
-  let name = userLogin.name;
-  let email = userLogin.email;
+  let name = listBooking[index].name;
+  let email = listBooking[index].email;
 
   // Kiểm tra trùng
   const isDuplicate = listBooking.some(b => b.date === date && b.time === time);
@@ -238,7 +202,27 @@ function deletelistBooking(index) {
 // phân trang
 
 
-
-
-
+// hàm lọc
+function filterlistBooking() {
+    const classNameSearch = document.querySelector("select[name='className']").value.toLowerCase();
+    const emailSearch     = document.querySelector("input[name='email']").value.toLowerCase();
+    const dateSearch      = document.querySelector("input[name='date']").value;
+  
+    const filteredList = listBooking.filter(d => {
+      const m1 = !classNameSearch || d.className.toLowerCase().includes(classNameSearch);
+      const m2 = !emailSearch     || d.email.toLowerCase().includes(emailSearch);
+      const m3 = !dateSearch      || d.date === dateSearch;
+      return m1 && m2 && m3;
+    });
+  
+  
+    renderdataEl(filteredList);
+  }
+  
+  // Sau khi DOM load, chỉ gán click cho button
+//   document.addEventListener("DOMContentLoaded", () => {
+//     document.getElementById("filterBtn")
+//       .addEventListener("click", filterlistBooking);
+//   });
+  
 

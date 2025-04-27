@@ -108,6 +108,6 @@ function register(event) {
   const modal = new bootstrap.Modal(document.getElementById("registerSuccess"));
     modal.show();
   formRegisterEL.reset();
-  window.location.href = "/";
+  window.location.href = "/authen";
 }
 
