@@ -19,12 +19,6 @@
   })()
 
   let listBooking = [
-    {
-        className : "Gym",
-        date : "2023-10-01",
-        time : "07:00 - 09:00"
-        
-    }
   ]
 
   if (!localStorage.getItem("listBooking")) {
@@ -127,38 +121,29 @@ bookingForm.addEventListener("submit", function(e) {
 let currentEditIndex = null;
 
 function editlistBooking(index) {
-  let className = document.querySelector("#editBookingForm select[name='className']").value;
-  let date = document.querySelector("#editBookingForm input[name='date']").value;
-  let time = document.querySelector("#editBookingForm select[name='time']").value;
-  let name = userLogin.name;
-  let email = userLogin.email;
+  // Lấy giá trị mới
+  const className = document.querySelector("#editBookingForm select[name='className']").value;
+  const date      = document.querySelector("#editBookingForm input[name='date']").value;
+  const time      = document.querySelector("#editBookingForm select[name='time']").value;
 
-  // Kiểm tra trùng
-  const isDuplicate = listBooking.some(b => b.date === date && b.time === time);
+  // Kiểm tra trùng, bỏ qua chính bản ghi đang sửa (i === index)
+  const isDuplicate = listBooking.some((b, i) =>
+    i !== index &&
+    b.date === date &&
+    b.time === time
+  );
+
   if (isDuplicate) {
-    // show modal lỗi, đóng modal sửa
     editModal.hide();
     errorModal.show();
     return;
   }
-    
 
-
-  let updatedBooking = {
-      className,
-      date,
-      time,
-      name,
-      email
-  };
-
-  listBooking[index] = updatedBooking;
+  // Nếu không trùng thì cập nhật
+  listBooking[index] = { className, date, time, name: userLogin.name, email: userLogin.email };
   updateData();
   renderdataEl();
-
-  // const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal2"));
   editModal.hide();
-  // const modaledit = new bootstrap.Modal(document.getElementById("editlistBooking"));
   successEditModal.show();
 }
 

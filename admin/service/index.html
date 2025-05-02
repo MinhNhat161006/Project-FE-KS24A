@@ -10,12 +10,13 @@
 <body>
     <nav class="sidebar">
         <h7>Admin Dashboard</h7>
-        <a href="/admin/index.html">Quản lý lịch</a>
+        <a href="/admin/calendar/index.html">Quản lý lịch</a>
         <a href="" class="active">Quản lý dịch vụ</a>
         <a href="/">Trang chủ</a>
-        <a href="authen" class="logout">Đăng xuất</a>
+        <a href="" onclick="logout(); return false;" class="logout">Đăng xuất</a>
       </nav>
 
+      <div class="allContent">
   <div class="main">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px">
       <h1>Quản lý dịch vụ</h1>
@@ -96,7 +97,7 @@
   </div>
 </div>
 
-
+</div>
 
 
   <!-- Modal editlistBooking -->
@@ -165,5 +166,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="service.js"></script>
+  <script src="/home/home.js"></script>
 </body>
 </html>

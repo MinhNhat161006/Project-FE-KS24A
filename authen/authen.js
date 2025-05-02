@@ -46,6 +46,11 @@ function login(event) {
   const data = getFormData(formLoginEL);
 
   const userData = userList.find(user => user.email === data.email);
+
+  if (userData.email == "" || userData.password == ""){
+    return;
+  }
+
   if (!userData) {
     const modal = new bootstrap.Modal(document.getElementById("userNotExist"));
     modal.show();

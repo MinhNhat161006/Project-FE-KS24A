@@ -1,31 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Quản lý lịch</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="calendar.css" rel ="stylesheet">
+    <link rel="stylesheet" href="calendar.css">
 </head>
 <body>
-    <script src ="../main.js"></script>
-
-    <script >
-        if (getUserLoginData()?.role == "USER" || !getUserLoginData()) {
-            alert ("Bạn không có quyền truy cập")
-            window.location.href ="/"
-        }
-    </script>
-
-
-
-
     <nav class="sidebar">
         <h7>Admin Dashboard</h7>
         <a href="" class="active">Quản lý lịch</a>
         <a href="/admin/service/index.html">Quản lý dịch vụ</a>
         <a href="/">Trang chủ</a>
-        <a href="authen" class="logout">Đăng xuất</a>
+        <a href="" onclick="logout(); return false;" class="logout">Đăng xuất</a>
       </nav>
     
 <div class="allContent">
@@ -37,23 +25,23 @@
         </button>
       </div>
         <div class="stats">
-          <div class="card-stat">
+          <div class="card-stat" id="gym">
             <h6>Tổng số lịch Gym</h6>
-            <p class="text-primary">0</p>
+            <p class="text-primary"></p>
           </div>
-          <div class="card-stat">
+          <div class="card-stat" id="yoga">
             <h6>Tổng số lịch Yoga</h6>
-            <p class="text-success">0</p>
+            <p class="text-success"></p>
           </div>
-          <div class="card-stat">
+          <div class="card-stat" id="zumba">
             <h6>Tổng số lịch Zumba</h6>
-            <p class="text-warning">0</p>
+            <p class="text-warningg"></p>
           </div>
         </div>
         <div class="chart-container">
-          <canvas id="scheduleChart" height="200"></canvas>
+          <canvas id="scheduleChart" height="150"></canvas>
         </div>
-      
+    
 <!-- lọc -->
 <form id="filterForm" class="filter">
   <h6>Bộ lọc</h6>
@@ -332,10 +320,13 @@
         </div></div>
       </div>
       
-  
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="calendar.js"></script>
     <script src="/booking/booking.js"></script>
+    <script src="/home/home.js"></script>
+  
 
 </body>
 </html>

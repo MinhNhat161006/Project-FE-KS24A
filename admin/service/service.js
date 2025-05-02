@@ -101,6 +101,7 @@ const time      = bookingForm.elements['time'].value;
 
   bookingForm.reset();
   bookingForm.classList.remove("was-validated");
+  renderPopularClasses();
 });
 
 
@@ -125,15 +126,8 @@ function editlistBooking(index) {
 
 
   editModal.hide();
-
+  renderPopularClasses();
 }
-
-
-
-
-
-
-
 
 
 
@@ -183,6 +177,7 @@ function deletelistBooking(index) {
       listService.splice(deleteIndex, 1); // xóa phần tử khỏi mảng
       updateData(); // cập nhật lại localStorage
       renderdataEl(); // render lại bảng
+      renderPopularClasses();
       deleteIndex = null; // reset lại chỉ số
     }
   });
@@ -190,8 +185,6 @@ function deletelistBooking(index) {
 
 
 // // phân trang
-
-
 
 
 

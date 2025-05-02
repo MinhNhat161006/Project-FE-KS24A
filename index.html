@@ -12,35 +12,35 @@
   <header>
     <div class="content">
         <div class="tittle_box">
-          <span>GYM MANAGEMENT</span>
+          <span style="font-size: 29px">GYM MANAGEMENT</span>
         </div>
         
         <div class="user_box">
-          <!-- <a href = "/">Quản lý Admin</a> -->
-
           <!-- <a href = "/">Trang chủ</a>
           <a href = "booking">Lịch tập</a>
+          <a href = "booking">Lịch đã đặt</a>
           <a href = "authen">Đăng nhập / Đăng ký</a> -->
 
           <!-- <p>Hello ABC!!!
           <a href = "">Đăng xuất</a>
           </p> -->
+            <!-- <a href = "/">Quản lý Admin</a> -->
         </div>
       </div>
   </header>
 
   <div class="banner">
-    <h1>Welcome to Our Gym</h1>
-    <p>Transform Your Body, Transform Your Life</p>
+    <h1 style="font-size: 48px">Welcome to Our Gym</h1>
+    <p style="font-size: 29px">Transform Your Body, Transform Your Life</p>
     <button class="btn btn-primary">Bắt đầu ngay</button>
   </div>
 
   <div class="popular-classes py-5">
     <h4 class="text-center fw-bold mb-4">Các lớp học phổ biến</h4>
-    <div class="container d-flex justify-content-center flex-wrap gap-4">
+    <div class="container d-flex justify-content-center flex-wrap gap-4" id="popularClassesContainer">
       <!-- Gym -->
       <div class="card shadow" style="width: 23rem;">
-        <img src="https://danviet.mediacdn.vn/upload/4-2022/images/2022-05-20/1653027273543285681265.jpg" class="card-img-top" alt="Gym">
+        <img src="https://ansupps.com/cdn/shop/articles/weights.jpg?v=1692780831" class="card-img-top" alt="Gym">
         <div class="card-body">
           <h5 class="card-title">Gym</h5>
           <p class="card-text" style ="color: #9CA3AF;">Tập luyện với các thiết bị hiện đại</p>
@@ -50,7 +50,7 @@
   
       <!-- Yoga -->
       <div class="card shadow" style="width: 23rem;">
-        <img src="https://yogaviet.vn/wp-content/uploads/2021/04/yoga-co-giup-tang-chieu-cao-khong.jpg" class="card-img-top" alt="Yoga">
+        <img src="https://img.freepik.com/premium-vector/international-yoga-day-banner-design-vector-file_783553-340.jpg" class="card-img-top" alt="Yoga">
         <div class="card-body">
           <h5 class="card-title">Yoga</h5>
           <p class="card-text" style ="color: #9CA3AF;">Thư giãn và cân bằng tâm trí</p>
@@ -60,7 +60,7 @@
   
       <!-- Zumba -->
       <div class="card shadow" style="width: 23rem;">
-        <img src="https://zumba.com.vn/uploads/images/zumba2.jpg" class="card-img-top" alt="Zumba">
+        <img src="https://img.freepik.com/free-psd/zumba-lifestyle-banner-template_23-2149193901.jpg" class="card-img-top" alt="Zumba">
         <div class="card-body">
           <h5 class="card-title">Zumba</h5>
           <p class="card-text" style ="color: #9CA3AF;">Đốt cháy calories với những điệu nhảy sôi động</p>
@@ -101,7 +101,9 @@
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="main.js"></script>
-  <script src="./js/home.js"></script>
+  <script src="admin/service/service.js"></script>
+  <script src="home/home.js"></script>
+  <script src="main.js"></script> 
+  
 </body>
 </html>

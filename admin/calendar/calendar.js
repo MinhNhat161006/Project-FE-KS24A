@@ -14,7 +14,7 @@ if (!localStorage.getItem("listBooking")) {
 
 
   let tabledata = document.querySelector("tbody");
-  const userLogin = JSON.parse(localStorage.getItem("userLogin") || '{}');
+
 
   function renderdataEl(data = listBooking) {
     let html = '';
@@ -226,3 +226,94 @@ function filterlistBooking() {
 //   });
   
 
+
+  // Giả sử listBooking đã được khởi tạo ở trên
+// Hàm updateStats chỉ để cập nhật số liệu text, nếu cần
+
+function updateStats() {
+  let gymCount = 0;
+  let yogaCount = 0;
+  let zumbaCount = 0;
+
+  // Đếm số lượng theo className
+  for (let i = 0; i < listBooking.length; i++) {
+    const booking = listBooking[i];
+    if (booking.className === "Gym") {
+      gymCount++;
+    } else if (booking.className === "Yoga") {
+      yogaCount++;
+    } else if (booking.className === "Zumba") {
+      zumbaCount++;
+    }
+  }
+
+  // Gán số lượng vào HTML
+  document.querySelector("#gym p").textContent = gymCount;
+  document.querySelector("#yoga p").textContent = yogaCount;
+  document.querySelector("#zumba p").textContent = zumbaCount;
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1) Lấy mảng đã lưu
+  const listBooking = JSON.parse(localStorage.getItem('listBooking') || '[]');
+
+  // 2) Đếm số lượng
+  const counts = listBooking.reduce((acc, b) => {
+    if (b.className === 'Gym')   acc.gym++;
+    if (b.className === 'Yoga')  acc.yoga++;
+    if (b.className === 'Zumba') acc.zumba++;
+    return acc;
+  }, { gym: 0, yoga: 0, zumba: 0 });
+
+  // 3) Lấy context
+  const ctx = document
+    .getElementById('scheduleChart')
+    .getContext('2d');
+
+  // 4) Vẽ biểu đồ cột với 3 dataset
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Số lượng'],     // chỉ có 1 nhóm cột
+      datasets: [
+        {
+          label: 'Gym',
+          data: [counts.gym],
+          backgroundColor: '#3B82F6',
+        },
+        {
+          label: 'Yoga',
+          data: [counts.yoga],
+          backgroundColor: '#10B981',
+        },
+        {
+          label: 'Zumba',
+          data: [counts.zumba],
+          backgroundColor: '#8B5CF6',
+        },
+      ]
+    },
+    options: {
+      scales: {
+        x: {
+          // mỗi dataset đều nằm chung 1 tick "Số lượng"
+          stacked: false,
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,   // hiển thị legend để click tắt/bật
+          position: 'top'
+        }
+      }
+    }
+  });
+});
+
+updateStats()

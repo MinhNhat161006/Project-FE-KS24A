@@ -8,7 +8,7 @@
     <link href="admin.css" rel ="stylesheet">
 </head>
 <body>
-    <script src ="../main.js"></script>
+  <script src="../../main.js"></script>
 
     <script >
         if (getUserLoginData()?.role == "USER" || !getUserLoginData()) {
@@ -25,7 +25,7 @@
         <a href="/admin/calendar/index.html" class="active">Quản lý lịch</a>
         <a href="/admin/service/index.html">Quản lý dịch vụ</a>
         <a href="/">Trang chủ</a>
-        <a href="authen" class="logout">Đăng xuất</a>
+        <a href="#" onclick="logout(); return false;" class="logout">Đăng xuất</a>
       </nav>
     
 <div class="allContent">
@@ -127,7 +127,7 @@
           </ul>
         </nav>
         </div>
-      </>  
+      </div>  
 </div>
 </div>
 
@@ -336,6 +336,7 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="admin.js"></script>
     <script src="/booking/booking.js"></script>
+    <script src="/home/home.js"></script>
 
 </body>
 </html>

@@ -14,7 +14,6 @@
 
 
   let tabledata = document.querySelector("tbody");
-  const userLogin = JSON.parse(localStorage.getItem("userLogin") || '{}');
 
   function renderdataEl(data = listBooking) {
     let html = '';
@@ -225,4 +224,3 @@ function filterlistBooking() {
 //       .addEventListener("click", filterlistBooking);
 //   });
   
-
