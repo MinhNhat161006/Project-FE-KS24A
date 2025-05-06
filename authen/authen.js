@@ -66,8 +66,6 @@ function login(event) {
   localStorage.setItem("userLogin", JSON.stringify(userData));
   const modal = new bootstrap.Modal(document.getElementById("loginSuccess"));
   modal.show();
-  formLoginEL.reset();
-  window.location.href = "/";
 }
 
 // Hàm xử lý đăng ký
@@ -109,10 +107,11 @@ function register(event) {
   userList.push(data);
   saveUserListToLocal(userList);
 
-  formRegisterEL.reset();
+  localStorage.setItem("userLogin", JSON.stringify(data));
   const modal = new bootstrap.Modal(document.getElementById("registerSuccess"));
     modal.show();
-  formRegisterEL.reset();
-  window.location.href = "/authen";
 }
 
+function confirmAuthen () {
+  window.location.href = "/";
+}

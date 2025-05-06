@@ -16,45 +16,51 @@
 <form id="loginForm" class="needs-validation" novalidate onsubmit="login(event)">
   <h3 class="text-center">Đăng nhập</h3>
   <div class="mb-3">
-    <input type="email" class="form-control" name="email" placeholder="Email" required>
+    Email
+    <input type="email" class="form-control" name="email" required>
     <div class="invalid-feedback">
       Vui lòng nhập email hợp lệ.
     </div>
   </div>
   <div class="mb-3">
-    <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required minlength="8">
+    Mật khẩu
+    <input type="password" class="form-control" name="password" required minlength="8">
     <div class="invalid-feedback">
       Mật khẩu tối thiểu 8 ký tự.
     </div>
   </div>
   <button class="btn btn-primary w-100" type="submit">Đăng nhập</button>
   <div class="text-center">
-    Chưa có tài khoản? <a href="#" id="toRegister" class="switch-link">Đăng ký ngay</a>
+    Chưa có tài khoản? <a href="#" style="text-decoration: none" id="toRegister"> Đăng ký ngay</a>
   </div>
 </form>
 
 <!-- Đăng ký -->
 <form id="registerForm" class="needs-validation" novalidate onsubmit="register(event)" style="display: none;">
-  <h3 class="text-center">Đăng ký</h3>
+  <h3 class="text-center">Đăng ký tài khoản</h3>
   <div class="mb-3">
-    <input type="text" class="form-control" name="name" placeholder="Tên đăng nhập" required>
+    Họ và tên
+    <input type="text" class="form-control" name="name" required>
     <div class="invalid-feedback">Vui lòng nhập tên đăng nhập.</div>
   </div>
   <div class="mb-3">
-    <input type="email" class="form-control" name="email" placeholder="Email" required>
+    Email
+    <input type="email" class="form-control" name="email" required>
     <div class="invalid-feedback">Vui lòng nhập email hợp lệ.</div>
   </div>
   <div class="mb-3">
-    <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required minlength="8">
+    Mật khẩu
+    <input type="password" class="form-control" name="password" required minlength="8">
     <div class="invalid-feedback">Mật khẩu phải có ít nhất 8 ký tự.</div>
   </div>
   <div class="mb-3">
-    <input type="password" class="form-control" name="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+    Xác nhận mật khẩu
+    <input type="password" class="form-control" name="confirmPassword" required>
     <div class="invalid-feedback">Vui lòng xác nhận mật khẩu.</div>
   </div>
   <button class="btn btn-success w-100" type="submit">Đăng ký</button>
   <div class="text-center">
-    Đã có tài khoản? <a href="#" id="toLogin" class="switch-link">Đăng nhập ngay</a>
+    Đã có tài khoản? <a href="#" style="text-decoration: none" id="toLogin"> Đăng nhập ngay</a>
   </div>
 </form>
 
@@ -143,7 +149,7 @@
             <p>Đăng nhập thành công!</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="confirmAuthen()">OK</button>
           </div>
         </div>
       </div>
@@ -161,7 +167,7 @@
             <p>Đăng ký thành công!</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="confirmAuthen()">OK</button>
           </div>
         </div>
       </div>

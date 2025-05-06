@@ -48,7 +48,7 @@
   <div class="filterContent">
     <div class="childFilter">
       <p>Lớp học</p>
-      <select id="searchClassName" name="className" class="form-select">
+      <select id="searchClassName" name="className" class="form-select" onchange="myFunction()">
         <option value="" selected>Tất cả</option>
         <option>Gym</option>
         <option>Yoga</option>
@@ -63,7 +63,6 @@
       <p>Ngày</p>
       <input id="searchDate" name="date" type="date" class="form-control">
     </div>
-    <button type="button" id="filterBtn" class="btn btn-secondary filter-button" onclick ="filterlistBooking()">Lọc</button>
   </div>
 </form>
 
@@ -82,7 +81,7 @@
               <th scope="col">Thao tác</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="demo">
             <!-- <tr>
               <th scope="row">1</th>
               <td>Mark</td>
@@ -319,6 +318,27 @@
           </div>
         </div></div>
       </div>
+
+
+
+          <!-- có chắc muốn đăng xuất không? -->
+    <div class="modal" id = "logoutModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông báo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc muốn đăng xuất không?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="confirmLogout()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
       
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -326,7 +346,7 @@
     <script src="calendar.js"></script>
     <script src="/booking/booking.js"></script>
     <script src="/home/home.js"></script>
-  
+    
 
 </body>
 </html>

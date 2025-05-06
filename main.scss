@@ -20,7 +20,6 @@ header {
         padding: 0 10px;
         color: white;
         .tittle_box{
-            font-size: large;
             font-weight: 600;
             color: white;
         }
@@ -33,6 +32,7 @@ header {
             a {
                 color: white;
                 text-decoration: none;
+                font-weight: 150;
             }
         }
     }
@@ -50,12 +50,12 @@ header {
     text-align: center;
  
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                          url('https://media.istockphoto.com/id/955656136/es/foto/joven-es-practicar-yoga-en-la-monta%C3%B1a.jpg?s=170667a&w=0&k=20&c=zUNKCx1KRS8W_fskEFkYNQsDy03OEVEvY_4vMN_fY3g=');
+                          url('https://tappilates.vn/wp-content/uploads/2024/05/yoga-la-gi-5.webp');
         background-size: cover;
         background-repeat: no-repeat;
-        background-size: 104%; /* phóng to ảnh, tức là crop bớt viền */
-background-position: bottom right; /* hiển thị phần phía trên và bên trái */
-background-position-y: 80%;
+        background-position: center;
+      
+
 
 
         color: white;
@@ -70,7 +70,12 @@ background-position-y: 80%;
 .card img {
     height: 180px;
     object-fit: cover;
-    ;
+    
 }
 
-
+footer {
+    .social {
+        display: flex;
+        gap: 20px;
+    }
+}

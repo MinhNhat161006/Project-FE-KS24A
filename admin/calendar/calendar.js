@@ -98,7 +98,7 @@ function editlistBooking(index) {
   let email = listBooking[index].email;
 
   // Kiểm tra trùng
-  const isDuplicate = listBooking.some(b => b.date === date && b.time === time);
+  const isDuplicate = listBooking.some((b, i) => i !== index && b.date === date && b.time === time);
   if (isDuplicate) {
     // show modal lỗi, đóng modal sửa
     editModal.hide();
@@ -202,33 +202,6 @@ function deletelistBooking(index) {
 // phân trang
 
 
-// hàm lọc
-function filterlistBooking() {
-    const classNameSearch = document.querySelector("select[name='className']").value.toLowerCase();
-    const emailSearch     = document.querySelector("input[name='email']").value.toLowerCase();
-    const dateSearch      = document.querySelector("input[name='date']").value;
-  
-    const filteredList = listBooking.filter(d => {
-      const m1 = !classNameSearch || d.className.toLowerCase().includes(classNameSearch);
-      const m2 = !emailSearch     || d.email.toLowerCase().includes(emailSearch);
-      const m3 = !dateSearch      || d.date === dateSearch;
-      return m1 && m2 && m3;
-    });
-  
-  
-    renderdataEl(filteredList);
-  }
-  
-  // Sau khi DOM load, chỉ gán click cho button
-//   document.addEventListener("DOMContentLoaded", () => {
-//     document.getElementById("filterBtn")
-//       .addEventListener("click", filterlistBooking);
-//   });
-  
-
-
-  // Giả sử listBooking đã được khởi tạo ở trên
-// Hàm updateStats chỉ để cập nhật số liệu text, nếu cần
 
 function updateStats() {
   let gymCount = 0;
@@ -317,3 +290,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 updateStats()
+
+
+// w3 school onchange
+const selClass = document.getElementById("searchClassName");
+const inpEmail = document.getElementById("searchEmail");
+const inpDate  = document.getElementById("searchDate");
+
+selClass.addEventListener("change", filterlistBooking);
+inpEmail.addEventListener("input", filterlistBooking);
+inpDate.addEventListener("change", filterlistBooking);
+
+// 2. Hàm lọc chung
+function filterlistBooking() {
+  const c = selClass.value;
+  const e = inpEmail.value.trim().toLowerCase();
+  const d = inpDate.value;
+
+  const filtered = listBooking.filter(b => {
+    const okClass = !c || b.className === c;
+    const okEmail = !e || b.email.toLowerCase().includes(e);
+    const okDate  = !d || b.date === d;
+    return okClass && okEmail && okDate;
+  });
+
+  renderdataEl(filtered);
+}
+

@@ -17,7 +17,7 @@ function renderHeader () {
           <button onclick ="logout()">Đăng xuất</button>
           </span>
                  ${
-                    userLogin.role == "ADMIN" ? `<a href = "/admin">Quản lý Admin</a>` : ""
+                    userLogin.role == "ADMIN" ? `<a href="../../admin/calendar/index.html">Quản lý Admin</a>` : ""
                   }
              
 
@@ -62,22 +62,18 @@ function renderHeader () {
 // }
 
 
-function logout() {
-    const ok = confirm("Bạn có chắc muốn đăng xuất?");
-    if (!ok) return;
-    localStorage.removeItem("userLogin");
-    window.location.href = "authen";
-  }
 
 
+function logout () {
+  const logoutModal    = new bootstrap.Modal(document.getElementById("logoutModal"));
+  logoutModal.show()
 
-// function logout () {
-//   const logoutModal    = new bootstrap.Modal(document.getElementById("logoutModal"));
-//   logoutModal.show()
-//   localStorage.removeItem("userLogin");
-//   window.location.href = "authen";
+}
 
-// }
+function confirmLogout() {
+  localStorage.removeItem("userLogin");
+  window.location.href = "/authen";
+}
 
 checkAuthen()
 renderHeader()

@@ -12,7 +12,7 @@
   <header>
     <div class="content">
         <div class="tittle_box">
-          <span style="font-size: 29px">GYM MANAGEMENT</span>
+          <span style="font-size: 20px ">GYM MANAGEMENT</span>
         </div>
         
         <div class="user_box">
@@ -30,9 +30,9 @@
   </header>
 
   <div class="banner">
-    <h1 style="font-size: 48px">Welcome to Our Gym</h1>
-    <p style="font-size: 29px">Transform Your Body, Transform Your Life</p>
-    <button class="btn btn-primary">Bắt đầu ngay</button>
+    <h1 style="font-size: 48px; font-weight: 700; ">Welcome to Our Gym</h1>
+    <p style="font-size: 29px; font-weight: 200;">Transform Your Body, Transform Your Life</p>
+    <button style="padding: 5px 30px; font-weight: 500; font-size: 18px;" class="btn btn-primary">Bắt đầu ngay</button>
   </div>
 
   <div class="popular-classes py-5">
@@ -70,9 +70,9 @@
     </div>
   </div>
   
-  <footer class="bg-dark text-white py-4 mt-5">
+  <footer class="text-white py-4 mt-5" style="background-color: #1F2937;">
     <div class="container" >
-        <div style ="border-bottom: solid 1px #9CA3AF;">
+        <div style ="border-bottom: solid 1px #374151;">
       <div class="row text-md-start">
         <div class="col-md-4 mb-3">
           <h5>Về chúng tôi</h5>
@@ -82,17 +82,21 @@
           <h5>Liên hệ</h5>
           <p class="small" style ="color: #9CA3AF;">
             Email: contact@gym.com<br>
-            Điện thoại: 0123-456-7890<br>
+            Phone: (123) 456-7890<br>
             Địa chỉ: 123 đường ABC, Quận XYZ
           </p>
         </div>
         <div class="col-md-4 mb-3">
           <h5>Theo dõi chúng tôi</h5>
-          <p class="small" style ="color: #9CA3AF;">Facebook   Instagram   Twitter</p>
+          <div class="social">
+          <p class="small" style ="color: #9CA3AF;">Facebook</p>
+          <p class="small" style ="color: #9CA3AF;">Instagram</p>
+          <p class="small" style ="color: #9CA3AF;">Twitter</p>
+        </div>
         </div>
       </div>
       </div>
-      <div class="text-center small mt-3" style ="color: #9CA3AF;">
+      <div class="text-center small mt-3" style ="color: #9CA3AF; padding: 17px; font-size: 16px; font-weight: 300;">
         © 2024 Gym Management. All rights reserved.
       </div>
     </div>
@@ -100,10 +104,29 @@
   
   
 
+    <!-- có chắc muốn đăng xuất không? -->
+    <div class="modal" id = "logoutModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông báo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc muốn đăng xuất không?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="confirmLogout()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="admin/service/service.js"></script>
   <script src="home/home.js"></script>
-  <script src="main.js"></script> 
+  <script src="main.js"></script>
   
 </body>
 </html>
