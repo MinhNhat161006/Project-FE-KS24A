@@ -18,30 +18,49 @@
     })
   })()
 
-  var listService = [
-    {
-      className: "Gym",
-      date: "Tập luyện với các thiết bị hiện đại",
-      time: "https://ansupps.com/cdn/shop/articles/weights.jpg?v=1692780831"
-    },
-    {
-      className: "Yoga",
-      date: "Thư giãn và cân bằng tâm trí",
-      time: "https://img.freepik.com/premium-vector/international-yoga-day-banner-design-vector-file_783553-340.jpg"
-    },
-    {
-      className: "Zumba",
-      date: "Đốt cháy calories với những điệu nhảy sôi động",
-      time: "https://img.freepik.com/free-psd/zumba-lifestyle-banner-template_23-2149193901.jpg"
-    }
-  ];
-
-  if (!localStorage.getItem("listService")) {
-    localStorage.setItem("listService", JSON.stringify(listService));
-    
-  }else {
-   listService = JSON.parse(localStorage.getItem("listService"));
+// 0. Fake data mặc định cho service
+const defaultServices = [
+  {
+    className: "Gym",
+    date: "Tập luyện với các thiết bị hiện đại",
+    time: "https://ansupps.com/cdn/shop/articles/weights.jpg?v=1692780831"
+  },
+  {
+    className: "Yoga",
+    date: "Thư giãn và cân bằng tâm trí",
+    time: "https://img.freepik.com/premium-vector/international-yoga-day-banner-design-vector-file_783553-340.jpg"
+  },
+  {
+    className: "Zumba",
+    date: "Đốt cháy calories với những điệu nhảy sôi động",
+    time: "https://img.freepik.com/free-psd/zumba-lifestyle-banner-template_23-2149193901.jpg"
+  },
+  {
+    className: "Pilates",
+    date: "Tăng cường cơ lõi và cải thiện tư thế",
+    time: "https://img.freepik.com/free-vector/woman-pilates-workout_23-2149243350.jpg"
+  },
+  {
+    className: "Boxing",
+    date: "Rèn luyện sức mạnh và phản xạ",
+    time: "https://img.freepik.com/free-vector/boxing-vector-illustration_53876-77805.jpg"
+  },
+  {
+    className: "Dance Fit",
+    date: "Vừa vận động vừa giải trí bằng nhảy hiện đại",
+    time: "https://img.freepik.com/free-vector/dance-fitness-banner-template_23-2149158202.jpg"
   }
+];
+
+// 1. Load từ localStorage hoặc seed bằng defaultServices
+let listService = [];
+if (!localStorage.getItem("listService")) {
+  listService = defaultServices.slice();              // copy dữ liệu mẫu
+  localStorage.setItem("listService", JSON.stringify(listService));
+} else {
+  listService = JSON.parse(localStorage.getItem("listService"));
+}
+
 
   function updateData() {
     localStorage.setItem("listService", JSON.stringify(listService));

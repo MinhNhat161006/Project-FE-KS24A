@@ -1,8 +1,4 @@
-let userLogin = null
-
-function checkAuthen() {
-    userLogin = JSON.parse(localStorage.getItem("userLogin"))
-}
+let userLogin = JSON.parse(localStorage.getItem("userLogin"));
 
 
 function renderHeader () {
@@ -32,34 +28,6 @@ function renderHeader () {
     }
 }
 
-// let gym =0;
-// let yoga =0;
-// let zumba= 0;
-// for (let i = 0; i<listBooking.length; i++) {
-//   if(lisBooking[i].className === "Gym"){
-//     gym++;
-//   } else if (isBooking[i].className === "Yoga") {
-//     yoga++;
-//   } else {
-//     zumba++;
-//   }
-// }
-// function renderStats () {
-//   let statsGym = document.querySelector("#gym")
-//   statsBoxEl.innerHTML=`
-//   <p class="text-primary">${gym}</p>
-//   `
-
-//   let statsYoga = document.querySelector("#yoga")
-//   statsBoxEl.innerHTML=`
-//   <p class="text-primary">${yoga}</p>
-//   `
-
-//   let statsZumba = document.querySelector("#zumba")
-//   statsBoxEl.innerHTML=`
-//   <p class="text-primary">${zumba}</p>
-//   `
-// }
 
 
 
@@ -75,6 +43,4 @@ function confirmLogout() {
   window.location.href = "/authen";
 }
 
-checkAuthen()
 renderHeader()
-renderStats()

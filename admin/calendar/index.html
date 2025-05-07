@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="calendar.css">
 </head>
 <body>
+  <script src="../../main.js"></script>
+
+  <script >
+      if (getUserLoginData()?.role == "USER" || !getUserLoginData()) {
+          alert ("Bạn không có quyền truy cập")
+          window.location.href ="/"
+      }
+  </script>
+
+
+
     <nav class="sidebar">
         <h7>Admin Dashboard</h7>
         <a href="" class="active">Quản lý lịch</a>
@@ -103,20 +114,14 @@
           </tbody>
         </table>
         
-        <!-- phân trang -->
-        <nav aria-label="...">
-          <ul class="pagination justify-content-center">
-            <li class="page-item active" aria-current="page">
-              <span class="page-link">1</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+        <!-- bootstrap phân trang -->
+        <nav>
+          <ul id="pagination" class="pagination justify-content-center">
+            <!-- JS sẽ sinh các <li class="page-item">…</li> ở đây -->
           </ul>
         </nav>
-        </div>
-      </div>  
-</div>
-</div>
+        
 
 
 <!-- Modal addlistBooking-->

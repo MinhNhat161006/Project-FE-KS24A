@@ -18,15 +18,29 @@
     })
   })()
 
-  let listBooking = [
-  ]
+// Fake data mặc định (seed)
+const defaultList = [
+  { className: "Zumba", date: "2025-05-15", time: "11:00 - 13:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Zumba", date: "2025-04-12", time: "11:00 - 13:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Yoga",  date: "2025-05-01", time: "13:00 - 15:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Zumba", date: "2025-05-16", time: "11:00 - 13:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Gym",   date: "2025-05-21", time: "11:00 - 13:00", name: "Lê Cường",  email: "lecuong@example.com" },
+  { className: "Gym",   date: "2025-04-28", time: "11:00 - 13:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Yoga",  date: "2025-05-30", time: "09:00 - 11:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Gym",   date: "2025-05-18", time: "09:00 - 11:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Yoga",  date: "2025-05-22", time: "09:00 - 11:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+  { className: "Yoga",  date: "2025-05-12", time: "07:00 - 09:00", name: "Minh Nhật", email: "minhnhat@example.com" },
+];
 
-  if (!localStorage.getItem("listBooking")) {
-    localStorage.setItem("listBooking", JSON.stringify(listBooking));
-    
-  }else {
-   listBooking = JSON.parse(localStorage.getItem("listBooking"));
-  }
+// Load từ localStorage, hoặc seed bằng defaultList
+let listBooking = [];
+if (!localStorage.getItem("listBooking")) {
+  listBooking = defaultList.slice();           // khởi tạo từ seed
+  localStorage.setItem("listBooking", JSON.stringify(listBooking));
+} else {
+  listBooking = JSON.parse(localStorage.getItem("listBooking"));
+}
+
 
   function updateData() {
     localStorage.setItem("listBooking", JSON.stringify(listBooking));
@@ -68,7 +82,7 @@
   tbody.innerHTML = html;
 }
 
-renderdataEl ();
+
 
 
 // hàm thêm
@@ -106,7 +120,7 @@ bookingForm.addEventListener("submit", function(e) {
                      name: userLogin.name,
                      email: userLogin.email });
   updateData();
-  renderdataEl();
+  render();
 
   // đóng modal Thêm, mở modal Thành công
   addModal.hide();
@@ -142,7 +156,7 @@ function editlistBooking(index) {
   // Nếu không trùng thì cập nhật
   listBooking[index] = { className, date, time, name: userLogin.name, email: userLogin.email };
   updateData();
-  renderdataEl();
+  render();
   editModal.hide();
   successEditModal.show();
 }
@@ -213,7 +227,7 @@ function deletelistBooking(index) {
     if (deleteIndex !== null) {
       listBooking.splice(deleteIndex, 1); // xóa phần tử khỏi mảng
       updateData(); // cập nhật lại localStorage
-      renderdataEl(); // render lại bảng
+      render(); // render lại bảng
       deleteIndex = null; // reset lại chỉ số
     }
   });
@@ -221,6 +235,84 @@ function deletelistBooking(index) {
 
 
 // phân trang
+// --- cấu hình phân trang ---
+const itemsPerPage = 5;
+let currentPage   = 1;
+
+// Lấy tất cả booking của user đang đăng nhập
+function getMyBookings() {
+  return listBooking.filter(b => b.email === userLogin.email);
+}
+
+// Lấy slice theo trang
+function getPaginatedData() {
+  const all = getMyBookings();
+  const start = (currentPage - 1) * itemsPerPage;
+  return all.slice(start, start + itemsPerPage);
+}
+
+// Vẽ lại table
+function renderData() {
+  const data = getPaginatedData();
+  const tbody = document.querySelector("tbody");
+  let html = "";
+  data.forEach((item, idx) => {
+    const realIndex = (currentPage - 1) * itemsPerPage + idx;
+    html += `
+      <tr>
+        <td>${item.className}</td>
+        <td>${item.date}</td>
+        <td>${item.time}</td>
+        <td>${item.name || ""}</td>
+        <td>${item.email || ""}</td>
+        <td>
+          <button style="background:none;border:none;color:blue"
+                  onclick="openEditModal(${realIndex})">Sửa</button>
+          <button style="background:none;border:none;color:red"
+                  onclick="deletelistBooking(${realIndex})">Xóa</button>
+        </td>
+      </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+// Vẽ các nút phân trang
+function renderPagination() {
+  const total = Math.ceil(getMyBookings().length / itemsPerPage);
+  const ul    = document.getElementById("pagination");
+  let html = `
+    <li class="page-item ${currentPage===1?'disabled':''}">
+      <button class="page-link" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled':''}>&laquo;</button>
+    </li>`;
+  for (let i = 1; i <= total; i++) {
+    html += `
+      <li class="page-item ${i===currentPage?'active':''}">
+        <button class="page-link" onclick="goToPage(${i})">${i}</button>
+      </li>`;
+  }
+  html += `
+    <li class="page-item ${currentPage===total?'disabled':''}">
+      <button class="page-link" onclick="goToPage(${currentPage+1})" ${currentPage===total?'disabled':''}>&raquo;</button>
+    </li>`;
+  ul.innerHTML = html;
+}
+
+// Chuyển trang
+function goToPage(page) {
+  const total = Math.ceil(getMyBookings().length / itemsPerPage);
+  if (page < 1 || page > total) return;
+  currentPage = page;
+  render();
+}
+
+// Gộp render dữ liệu + pagination
+function render() {
+  renderData();
+  renderPagination();
+}
+
+// Thay tất cả các lần gọi renderdataEl() thành render()
+render();
 
 
 

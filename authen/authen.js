@@ -1,4 +1,26 @@
-let userList = JSON.parse(localStorage.getItem("userList")) || [];
+//  Fake data mặc định
+const defaultUsers = [
+  { name: "MinhNhat",  email: "nguyenthimailoanvta@gmail.com",   password: "12345678", role: "USER" },
+  { name: "Minh Nhật", email: "nhmnhat161006.nvtroi2124@gmail.com", password: "12345678", role: "ADMIN" },
+  { name: "Nhật Quỳnh",email: "nhatquynh@gmail.com",              password: "12345678", role: "USER" },
+  { name: "Tấn Hão",  email: "tanhao@gmail.com",                 password: "12345678", role: "USER" },
+  { name: "adsf",     email: "dscsdc@gmail.com",                 password: "12345678", role: "USER" },
+  { name: "ưdadwa",   email: "nma@gmail.com",                    password: "12345678", role: "USER" },
+  { name: "sdadsaf",  email: "a@gmail.com",                      password: "12345678", role: "USER" },
+  { name: "à",        email: "b@gmail.com",                      password: "12345678", role: "USER" },
+  { name: "b",        email: "c@gmail.com",                      password: "12345678", role: "USER" },
+  { name: "Lê Cường", email: "cuong@gmail.com",                  password: "12345678", role: "USER" },
+];
+
+//  Load hoặc seed userList
+let userList;
+if (!localStorage.getItem("userList")) {
+  userList = defaultUsers.slice();               // copy fake data
+  localStorage.setItem("userList", JSON.stringify(userList));
+} else {
+  userList = JSON.parse(localStorage.getItem("userList"));
+}
+
 
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');

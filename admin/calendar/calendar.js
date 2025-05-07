@@ -1,43 +1,105 @@
+//biểu đồ hiện lên khi bấm và calendar
+let scheduleChart = null;
+document.addEventListener('DOMContentLoaded', () => {
+  renderChart();
+});
+
 
 
 if (!localStorage.getItem("listBooking")) {
-    localStorage.setItem("listBooking", JSON.stringify(listBooking));
-    
-  }else {
-   listBooking = JSON.parse(localStorage.getItem("listBooking"));
+  localStorage.setItem("listBooking", JSON.stringify(listBooking));
+} else {
+  listBooking = JSON.parse(localStorage.getItem("listBooking"));
+}
+
+function updateData() {
+  localStorage.setItem("listBooking", JSON.stringify(listBooking));
+  render();  // mỗi khi thêm/sửa/xóa thì gọi lại để cập nhật UI
+}
+
+// Cấu hình phân trang
+const itemsPerPage = 5;
+let currentPage = 1;
+
+// render data vào <tbody>
+let tabledata = document.querySelector("tbody");
+function renderdataEl(data = []) {
+  let html = '';
+  data.forEach((item, i) => {
+    html += `
+      <tr>
+        <td>${item.className}</td>
+        <td>${item.date}</td>
+        <td>${item.time}</td>
+        <td>${item.name || ''}</td>
+        <td>${item.email || ''}</td>
+        <td>
+          <button class="btn btn-link p-0" onclick="openEditModal(${(currentPage-1)*itemsPerPage + i})">Sửa</button>
+          <button class="btn btn-link text-danger p-0" onclick="deletelistBooking(${(currentPage-1)*itemsPerPage + i})">Xóa</button>
+        </td>
+      </tr>`;
+  });
+  tabledata.innerHTML = html;
+}
+
+// tính slice dữ liệu cho trang hiện tại
+function getPaginatedData() {
+  const start = (currentPage - 1) * itemsPerPage;
+  return listBooking.slice(start, start + itemsPerPage);
+}
+
+// sinh nút phân trang
+function renderPagination() {
+  const totalPages = Math.ceil(listBooking.length / itemsPerPage);
+  const container = document.getElementById('pagination');
+  let html = '';
+
+  // nút Prev
+  html += `
+    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+      <button class="page-link" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+        &laquo;
+      </button>
+    </li>`;
+
+  // các nút số (nếu bạn muốn giới hạn 5 nút số thì bổ sung logic window, nhưng để đơn giản ở đây hiện hết)
+  for (let i = 1; i <= totalPages; i++) {
+    html += `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <button class="page-link" onclick="goToPage(${i})">${i}</button>
+      </li>`;
   }
 
-  function updateData() {
-    localStorage.setItem("listBooking", JSON.stringify(listBooking));
-  }
+  // nút Next
+  html += `
+    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+      <button class="page-link" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+        &raquo;
+      </button>
+    </li>`;
+
+  container.innerHTML = html;
+}
+
+// chuyển trang
+function goToPage(page) {
+  const totalPages = Math.ceil(listBooking.length / itemsPerPage);
+  if (page < 1 || page > totalPages) return;
+  currentPage = page;
+  render();
+}
+
+// render full: data + pagination
+function render() {
+  renderdataEl(getPaginatedData());
+  renderPagination();
+}
+
+// gọi lần đầu
+render();
 
 
 
-  let tabledata = document.querySelector("tbody");
-
-
-  function renderdataEl(data = listBooking) {
-    let html = '';
-    for (let i = 0; i < data.length; i++) {
-      html += `
-        <tr>
-          <td>${data[i].className}</td>
-          <td>${data[i].date}</td>
-          <td>${data[i].time}</td>
-          <td>${data[i].name || ''}</td>
-          <td>${data[i].email || ''}</td>
-          <td>
-            <button class="btn btn-link p-0" onclick="openEditModal(${i})">Sửa</button>
-            <button class="btn btn-link text-danger p-0" onclick="deletelistBooking(${i})">Xóa</button>
-          </td>
-        </tr>
-      `;
-    }
-    tabledata.innerHTML = html;
-  }
-  
-
-renderdataEl ();
 
 
 // hàm thêm
@@ -76,7 +138,8 @@ bookingForm.addEventListener("submit", function(e) {
   // thêm mới
   listBooking.push({ className, date, time, name, email });
   updateData();
-  renderdataEl();
+  render();
+  renderChart();
 
   // đóng modal Thêm, mở modal Thành công
   addModal.hide();
@@ -118,11 +181,9 @@ function editlistBooking(index) {
 
   listBooking[index] = updatedBooking;
   updateData();
-  renderdataEl();
-
-  // const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal2"));
+  render();
+  renderChart();
   editModal.hide();
-  // const modaledit = new bootstrap.Modal(document.getElementById("editlistBooking"));
   successEditModal.show();
 }
 
@@ -133,7 +194,6 @@ function editlistBooking(index) {
 function openAddModal() {
   document.getElementById("AddBookingForm").reset(); // reset form
   document.getElementById("AddBookingForm").classList.remove("was-validated"); // bỏ validate cũ
-
   const addModal = new bootstrap.Modal(document.getElementById('exampleModalAddList'));
   addModal.show();
 }
@@ -143,7 +203,7 @@ function openAddModal() {
 
 
 
-
+//mở form edit
 function openEditModal(index) {
   currentEditIndex = index;
   const booking = listBooking[index];
@@ -192,14 +252,18 @@ function deletelistBooking(index) {
     if (deleteIndex !== null) {
       listBooking.splice(deleteIndex, 1); // xóa phần tử khỏi mảng
       updateData(); // cập nhật lại localStorage
-      renderdataEl(); // render lại bảng
+      render(); // render lại bảng
+      renderChart();
       deleteIndex = null; // reset lại chỉ số
     }
   });
 
 
 
-// phân trang
+
+
+
+
 
 
 
@@ -317,3 +381,62 @@ function filterlistBooking() {
   renderdataEl(filtered);
 }
 
+
+// biểu đồ
+function renderChart() {
+  // Đếm số lượng mới
+  const counts = listBooking.reduce((acc, b) => {
+    if (b.className === 'Gym')   acc.gym++;
+    if (b.className === 'Yoga')  acc.yoga++;
+    if (b.className === 'Zumba') acc.zumba++;
+    return acc;
+  }, { gym: 0, yoga: 0, zumba: 0 });
+
+  // Cập nhật thống kê
+  document.querySelector("#gym p").textContent = counts.gym;
+  document.querySelector("#yoga p").textContent = counts.yoga;
+  document.querySelector("#zumba p").textContent = counts.zumba;
+
+  // Nếu chart đã tồn tại thì chỉ update
+  if (scheduleChart) {
+    scheduleChart.data.datasets[0].data = [counts.gym];
+    scheduleChart.data.datasets[1].data = [counts.yoga];
+    scheduleChart.data.datasets[2].data = [counts.zumba];
+    scheduleChart.update();
+    return;
+  }
+
+  // Nếu chưa có thì tạo mới
+  const ctx = document.getElementById('scheduleChart').getContext('2d');
+  scheduleChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Số lượng'],
+      datasets: [
+        {
+          label: 'Gym',
+          data: [counts.gym],
+          backgroundColor: '#3B82F6',
+        },
+        {
+          label: 'Yoga',
+          data: [counts.yoga],
+          backgroundColor: '#10B981',
+        },
+        {
+          label: 'Zumba',
+          data: [counts.zumba],
+          backgroundColor: '#8B5CF6',
+        },
+      ]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true, ticks: { precision: 0 } }
+      },
+      plugins: {
+        legend: { display: true, position: 'top' }
+      }
+    }
+  });
+}
